@@ -1,0 +1,4 @@
+{
+	"name": "Dev Container K3S by Tiamat",
+	"image": "ghcr.io/tiamat-azure/devcontainer-k3s:latest"
+}
