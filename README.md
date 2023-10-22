@@ -1,9 +1,7 @@
 # data-engineer-kubernetes
-Déploiement d'une architecture dans Kubernetes en utilisant différentes méthodes, y compris Helm et Kustomize.
-
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/tiamat-azure/data-engineer-kubernetes)
 
-Dev container for kubernetes using k3s, helm, kustomize.
+Déploiement d'une architecture dans Kubernetes en utilisant différentes méthodes, y compris Helm et Kustomize.
 
 ## Get started
 
