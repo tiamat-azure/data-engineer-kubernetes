@@ -1,0 +1,20 @@
+[pod/postgres-statefulset-0/postgres] 
+[pod/postgres-statefulset-0/postgres] 
+[pod/postgres-statefulset-0/postgres] /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+[pod/postgres-statefulset-0/postgres] 
+[pod/postgres-statefulset-0/postgres] 2023-11-08 01:00:34.851 UTC [49] LOG:  received fast shutdown request
+[pod/postgres-statefulset-0/postgres] waiting for server to shut down....2023-11-08 01:00:34.868 UTC [49] LOG:  aborting any active transactions
+[pod/postgres-statefulset-0/postgres] 2023-11-08 01:00:34.883 UTC [49] LOG:  background worker "logical replication launcher" (PID 56) exited with exit code 1
+[pod/postgres-statefulset-0/postgres] 2023-11-08 01:00:34.884 UTC [51] LOG:  shutting down
+[pod/postgres-statefulset-0/postgres] 2023-11-08 01:00:35.039 UTC [49] LOG:  database system is shut down
+[pod/postgres-statefulset-0/postgres]  done
+[pod/postgres-statefulset-0/postgres] server stopped
+[pod/postgres-statefulset-0/postgres] 
+[pod/postgres-statefulset-0/postgres] PostgreSQL init process complete; ready for start up.
+[pod/postgres-statefulset-0/postgres] 
+[pod/postgres-statefulset-0/postgres] 2023-11-08 01:00:35.118 UTC [1] LOG:  starting PostgreSQL 14.5 (Debian 14.5-2.pgdg110+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+[pod/postgres-statefulset-0/postgres] 2023-11-08 01:00:35.118 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+[pod/postgres-statefulset-0/postgres] 2023-11-08 01:00:35.118 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+[pod/postgres-statefulset-0/postgres] 2023-11-08 01:00:35.160 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+[pod/postgres-statefulset-0/postgres] 2023-11-08 01:00:35.198 UTC [63] LOG:  database system was shut down at 2023-11-08 01:00:35 UTC
+[pod/postgres-statefulset-0/postgres] 2023-11-08 01:00:35.222 UTC [1] LOG:  database system is ready to accept connections
