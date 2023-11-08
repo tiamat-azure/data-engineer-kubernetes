@@ -7,6 +7,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: postgres-secret
+  namespace: standard
 type: Opaque
 data:
   POSTGRES_USER: YWRtaW4=  # Base64-encoded value for "admin"
@@ -17,6 +18,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: postgres-pvc
+  namespace: standard
 spec:
   accessModes:
     - ReadWriteOnce
@@ -29,6 +31,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: postgres-statefulset
+  namespace: standard
 spec:
   # serviceName: "postgres"
   replicas: 1
@@ -67,6 +70,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: postgres-svc
+  namespace: standard
 spec:
   selector:
     app: postgres
@@ -79,6 +83,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: pgadmin-secret
+  namespace: standard
 type: Opaque
 data:
   PGADMIN_DEFAULT_EMAIL: YWRtaW5Ab3B0Lm5j  # Base64-encoded value for "admin@opt.nc"
@@ -88,6 +93,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pgadmin-deployment
+  namespace: standard
   labels:
     app: pgadmin
 spec:
@@ -118,6 +124,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: pgadmin-svc
+  namespace: standard
 spec:
   selector:
     app: pgadmin
@@ -130,6 +137,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fastapi-deployment
+  namespace: standard
   labels:
     app: fastapi
 spec:
@@ -147,6 +155,17 @@ spec:
         image: ghcr.io/tiamat-azure/fast-api:latest
         ports:
         - containerPort: 5000
+        env:
+        - name: DB_USER
+          value: admin
+        - name: DB_PWD
+          value: password
+        - name: DB_HOST
+          value: postgres-svc
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_NAME
+          value: storedb
         resources:
           limits:
             memory: "256Mi"
@@ -154,11 +173,16 @@ spec:
           requests:
             memory: "128Mi"
             cpu: "250m"
+      initContainers:
+      - name: init-postgres
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup postgres-svc.standard.svc.cluster.local; do echo waiting for service postgres-svc; sleep 2; done"]
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: fastapi-svc
+  namespace: standard
 spec:
   selector:
     app: fastapi
