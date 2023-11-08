@@ -3,5 +3,11 @@
 	
 	"image": "ghcr.io/tiamat-azure/devcontainer-k3s:latest",
 
-	"forwardPorts": [80, 8080] // FastAPI:80, PgAdmin:8080
+	"forwardPorts": [30080, 30081],
+
+	// add labels
+	"portsAttributes": {
+		"30080": { "label": "FastAPI" },
+		"30081": { "label": "PgAdmin" }
+	}
 }

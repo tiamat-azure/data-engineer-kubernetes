@@ -127,11 +127,13 @@ metadata:
   name: pgadmin-svc
   namespace: standard
 spec:
+  type: NodePort
   selector:
     app: pgadmin
   ports:
     - protocol: TCP
       port: 8080
+      nodePort: 30081
       targetPort: 80
 ---
 apiVersion: apps/v1
@@ -185,10 +187,30 @@ metadata:
   name: fastapi-svc
   namespace: standard
 spec:
+  type: NodePort
   selector:
     app: fastapi
   ports:
     - protocol: TCP
       port: 80
       targetPort: 5000
+      nodePort: 30080
 ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: fastapi-ingress
+#   namespace: standard
+# spec:
+#   rules:
+#     - host:   # Remplacez par votre domaine ou laissez vide si vous n'avez pas de domaine
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: fastapi-svc
+#                 port:
+#                   number: 80
+# ---

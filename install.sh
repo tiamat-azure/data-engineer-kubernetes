@@ -24,11 +24,31 @@ kubectl config set-context --current --namespace=standard
 # Consulter le detail du contexte courant et les autres contextes
 # kubectl config get-contexts $(kubectl config current-context)
 
-# Consulter les logs de tous les pods fastapi
-kubectl logs -l app=fastapi --all-containers=true --tail=20 --prefix > yaml-standard/logs-fastapi.txt
-kubectl logs -l app=pgadmin --all-containers=true --tail=20 --prefix > yaml-standard/logs-pgadmin.txt
-kubectl logs -l app=postgres --all-containers=true --tail=20 --prefix > yaml-standard/logs-postgres.txt
+# Attendre 30 secondes
+WAIT_TIME=40
+echo 'Attendre '$WAIT_TIME' seconds le demarrage des pods...'
+sleep $WAIT_TIME
 
+# Consulter les logs
+LOG=all-logs.txt
+
+# Consulter les logs de PgAdmin
+figlet "yaml-pgadmin" > $LOG
+kubectl logs -l app=pgadmin --all-containers=true --tail=20 --prefix >> $LOG
+
+figlet "yaml-postgres" >> $LOG
+kubectl logs -l app=postgres --all-containers=true --tail=20 --prefix >> $LOG
+
+figlet "yaml-fastapi" >> $LOG
+kubectl logs -l app=fastapi --all-containers=true --tail=20 --prefix >> $LOG
+
+# Tester un curl sur l'application FastAPI
+figlet "Curl FastAPI" >> $LOG
+kubectl run curl-container --image=radial/busyboxplus:curl -i --rm --restart=Never -- curl http://fastapi-svc.standard.svc.cluster.local >> $LOG
+
+# Tester un curl sur l'application PgAdmin
+figlet "Curl PgAdmin" >> $LOG
+kubectl run curl-container --image=radial/busyboxplus:curl -i --rm --restart=Never -- curl http://pgadmin-svc.standard.svc.cluster.local:8080 >> $LOG
 
 # Creer les ressources k8s pour le namespace helm
 
