@@ -1,4 +1,7 @@
 {
 	"name": "Dev Container K3S by Tiamat",
-	"image": "ghcr.io/tiamat-azure/devcontainer-k3s:latest"
+	
+	"image": "ghcr.io/tiamat-azure/devcontainer-k3s:latest",
+
+	"forwardPorts": [80, 8080] // FastAPI:80, PgAdmin:8080
 }
